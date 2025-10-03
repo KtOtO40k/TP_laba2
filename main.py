@@ -11,11 +11,10 @@ class Pet(ABC):
         pass
 class Animal(Pet):
     def __init__(self, name:str):
-        self._name = name
+        self.__name = name
+    @property
     def getName(self)-> str:
-        return self._name
-    def makeNoise(self) -> str:
-        pass
+        return self.__name
 
 class Parrot(Animal):
     def makeNoise(self) -> str:
@@ -25,15 +24,19 @@ class Turtle(Animal):
         return "Хррррррш"
 class Person:
     def __init__(self,name:str,pet: Pet):
-        self.name = name
-        self.pet = pet
+        self.__name = name
+        self.__pet = pet
+
     def setPet(self,pet:Pet):
-        self.pet = pet
+        self.__pet = pet
+    @property
     def getPetInfo(self):
-        print("-" * 26)
-        print(f"Питомец для {self.name} называется {self.pet.getName()}")
-        print("И он издаёт такой звук:")
-        print(self.pet.makeNoise())
+        return (
+                "-" * 26 + "\n"
+                           f"Питомец для {self.__name} называется {self.__pet.getName}\n"
+                           "И он издаёт такой звук:\n"
+                           f"{self.__pet.makeNoise()}\n"
+        )
 
 
 
@@ -44,6 +47,5 @@ turtle = Turtle("Cherepaha")
 bob = Person("Bob",parrot)
 tom = Person("Tom",turtle)
 
-bob.getPetInfo()
-tom.getPetInfo()
-
+print(bob.getPetInfo)
+print(tom.getPetInfo)
